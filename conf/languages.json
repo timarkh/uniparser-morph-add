@@ -1,0 +1,89 @@
+﻿{
+	"udmurt": {
+		"repo": "uniparser-grammar-udm",
+		"id": "udm",
+		"name_ru": "удмуртский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "ADJ",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTRJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PREDIC",
+				"name_ru": "предикатив"
+			},
+			{
+				"pos": "ADJPRO",
+				"name_ru": "местоимение-прилагательное"
+			},
+			{
+				"pos": "ADVPRO",
+				"name_ru": "местоимение-наречие"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "другое местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			},
+			{
+				"pos": "CNJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		]
+	},
+	"komi_zyrian": {
+		"repo": "uniparser-grammar-komi-zyrian",
+		"id": "kpv",
+		"name_ru": "коми-зырянский"
+	},
+	"meadow_mari": {
+		"repo": "uniparser-grammar-meadow-mari",
+		"id": "mhr",
+		"name_ru": "луговой марийский"
+	},
+	"erzya": {
+		"repo": "uniparser-grammar-erzya",
+		"id": "myv",
+		"name_ru": "эрзянский"
+	},
+	"moksha": {
+		"repo": "uniparser-grammar-moksha",
+		"id": "mdf",
+		"name_ru": "мокшанский"
+	}
+}

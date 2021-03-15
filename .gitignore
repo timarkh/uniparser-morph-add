@@ -1,0 +1,8 @@
+__pycache__/*
+.idea/
+**.pyc
+web_app/udmurt/uniparser-grammar-udm/*
+web_app/komi_zyrian/uniparser-grammar-komi-zyrian/*
+web_app/meadow_mari/uniparser-grammar-meadow-mari/*
+web_app/erzya/uniparser-grammar-erzya/*
+web_app/moksha/uniparser-grammar-moksha/*
