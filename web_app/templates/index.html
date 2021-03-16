@@ -22,52 +22,59 @@
 <div class="container main">
 {% if lang %}
 	<h2>Пополнение грамматического словаря ({{ languages[lang].name_ru }})</h2>
-	<p class="lead">Заполните поля и нажмите &laquo;Добавить&raquo;.</p>
-	<div class="col-lg-8 mx-auto">
-		<form id="lex_form">
-		<div class="form-group row">
-			<label for="input_lemma" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
-			<div class="col-sm-6"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
-		</div>
-		<div class="form-group row">
-			<label for="input_trans_ru" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
-			<div class="col-sm-6"><input type="text" class="form-control form-control-trans" name="trans_ru" id="input_trans_ru"></div>
-		</div>
-		<div class="form-group row">
-			<label for="input_pos" class="col-form-label col-sm-3" style="text-align: right;">Часть речи:</label>
-			<div class="col-sm-6">
-				<select class="form-control" name="pos" id="input_pos">
-				{% for pos in languages[lang].pos %}
-					<option value="{{ pos.pos }}">{{ pos.name_ru }} ({{ pos.pos }})</option>
-				{% endfor %}
-				</select>
+	<p class="lead">Заполните поля и нажмите &laquo;Добавить&raquo; или Enter.</p>
+	<p>Если у Вас есть список неразобранных словоформ (по одной на строчку), можно вставить его в поле справа; слова будут подставляться в поле &laquo;лемма&raquo; по очереди. Если слово из списка нужно пропустить, нажмите стрелку вправо.</p>
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			<form id="lex_form">
+			<div class="form-group row">
+				<label for="input_lemma" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
+				<div class="col-sm-6"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
 			</div>
-		</div>
-		<hr>
-		{% for el in languages[lang].tags %}
-			<div class="form-group row{% if el.optional %} form-group-optional{% endif %}">
-				{% if el.tags %}
-				<input class="form-check-input" type="checkbox" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}" value="{{ el.tags }}">
-				{% endif %}
-				<label for="tags_{{ loop.index }}" class="{% if el.tags %}form-check-label{% else %}col-form-label col-sm-3{% endif %}"{% if el.options %} style="text-align: right;"{% endif %}>
-					{% if el.optional %}<abbr title="Заполнить это поле желательно, но не обязательно.">{% endif %}
-						{{ el.label_ru }}{% if el.tags %} ({{ el.tags }}){% endif %}
-					{% if el.optional %}</abbr>{% endif %}
-				</label>
-				{% if el.options %}
+			<div class="form-group row">
+				<label for="input_trans_ru" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
+				<div class="col-sm-6"><input type="text" class="form-control form-control-trans" name="trans_ru" id="input_trans_ru"></div>
+			</div>
+			<div class="form-group row">
+				<label for="input_pos" class="col-form-label col-sm-3" style="text-align: right;">Часть речи:</label>
 				<div class="col-sm-6">
-					<select class="form-control" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}">
-					{% for option in el.options %}
-						<option value="{{ option.tags }}">{{ option.name_ru }} ({{ option.tags }})</option>
+					<select class="form-control" name="pos" id="input_pos">
+					{% for pos in languages[lang].pos %}
+						<option value="{{ pos.pos }}">{{ pos.name_ru }} ({{ pos.pos }})</option>
 					{% endfor %}
 					</select>
 				</div>
-				{% endif %}
 			</div>
-		{% endfor %}
-		</form>
+			<hr>
+			{% for el in languages[lang].tags %}
+				<div class="form-group row{% if el.optional %} form-group-optional{% endif %}">
+					{% if el.tags %}
+					<input class="form-check-input" type="checkbox" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}" value="{{ el.tags }}">
+					{% endif %}
+					<label for="tags_{{ loop.index }}" class="{% if el.tags %}form-check-label{% else %}col-form-label col-sm-3{% endif %}"{% if el.options %} style="text-align: right;"{% endif %}>
+						{% if el.optional %}<abbr title="Заполнить это поле желательно, но не обязательно.">{% endif %}
+							{{ el.label_ru }}{% if el.tags %} ({{ el.tags }}){% endif %}
+						{% if el.optional %}</abbr>{% endif %}
+					</label>
+					{% if el.options %}
+					<div class="col-sm-6">
+						<select class="form-control" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}">
+						{% for option in el.options %}
+							<option value="{{ option.tags }}">{{ option.name_ru }} ({{ option.tags }})</option>
+						{% endfor %}
+						</select>
+					</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+			</form>
+		</div>
+		<div class="col-lg-3" id="wf_list_div">
+			<textarea id="wf_list"></textarea>
+		</div>
 	</div>
-	<button id="add_lemma" type="button" class="btn btn-primary">Добавить</button> 
+	<button id="add_lemma" type="button" class="btn btn-primary btn-lg">Добавить</button>
+	<div class="alert alert-success alert-dismissible fade" role="alert" id="response_message"></div>
 {% else %}
 	<h2>Пополнение грамматических словарей uniparser-morph</h2>
 	<p class="lead">Выберите язык (литературный стандарт):</p>
@@ -79,6 +86,27 @@
 		<li><a href='/meadow_mari'>Луговой марийский</a></li>
 	</ul>
 {% endif %}
+</div>
+
+<div class="modal fade" id="lexeme_exists" tabindex="-1" role="dialog" aria-labelledby="lexeme_exists_header" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="lexeme_exists_header">Grammar selection header</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          			<span aria-hidden="true">&times;</span>
+        		</button>
+			</div>
+			<div class="modal-body" id="lexeme_exists_body">
+				<p>Похожая лексема или лексемы уже есть словаре. Если это та же самая лексема, но какая-то её форма не разбирается, вводить её заново не надо. Вместо этого можно написать сообщение об ошибке в репозитории морфологического анализатора.</p>
+				<pre id="old_lexemes"></pre>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-success" aria-label="Всё равно добавить" id="lexeme_exists_ok">Всё равно добавить</button>
+				<button type="button" class="btn btn-default btn-danger" aria-label="Нет, так быть не должно" id="lexeme_exists_cancel" data-bs-dismiss="modal">Нет, так быть не должно</button>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

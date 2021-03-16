@@ -16,6 +16,19 @@
 	font-family: Courier;
 }
 
+#wf_list {
+	font-size: 1.1rem;
+	font-family: Courier;
+	height: 96%;
+	padding: 5px;
+	margin: 7px;
+}
+
+#wf_list_div {
+	background-color: aliceblue;
+	border-radius: 4px;
+}
+
 .form-control:focus {
 	color: black;
 }

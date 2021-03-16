@@ -37,15 +37,22 @@ def add_lemma(lang):
         return jsonify({'message': 'Такого языка нет в списке.'})
     query = copy_request_args()
     lemma, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
-    addAnyway = False
-    if addAnyway:
-        gd.add_lemma(lang, lemma, pos, tags, stems, trans_ru)
-        return jsonify({'message': 'OK'})
     oldLexemes = gd.search(lang, lemma, pos)
     if len(oldLexemes) > 0:
         return jsonify({'lexemes': oldLexemes})
     gd.add_lemma(lang, lemma, pos, tags, stems, trans_ru)
     return jsonify({'message': 'OK'})
+
+
+@app.route('/<lang>/add_lemma_anyway')
+def add_lemma_anyway(lang):
+    if lang not in gd.languages:
+        return jsonify({'message': 'Такого языка нет в списке.'})
+    query = copy_request_args()
+    lemma, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
+    gd.add_lemma(lang, lemma, pos, tags, stems, trans_ru)
+    return jsonify({'message': 'OK'})
+
 
 
 if __name__ == "__main__":
