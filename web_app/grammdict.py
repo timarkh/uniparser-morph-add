@@ -32,11 +32,13 @@ class GrammDict:
                 if line[0] == 'lex':
                     lemma = line[1]
                 elif line[0] == 'gramm':
-                    pos = ','.join(re.findall('[A-Z][A-Z_-]*', line[1]))
-                if (lemma, pos) not in self.lexemes[lang]:
-                    self.lexemes[lang] = [lex]
-                else:
-                    self.lexemes[lang].append(lex)
+                    posTags = re.findall('[A-Z][A-Z_-]*', line[1])
+                    if len(posTags) > 0:
+                        pos = posTags[0]
+            if (lemma, pos) not in self.lexemes[lang]:
+                self.lexemes[lang][(lemma, pos)] = [lex]
+            else:
+                self.lexemes[lang][(lemma, pos)].append(lex)
 
     def initialize_language(self, lang):
         if lang not in self.languages:
@@ -48,35 +50,101 @@ class GrammDict:
                 with open(os.path.join(repoRoot, fname), 'r', encoding='utf-8-sig') as fIn:
                     self.load_dict(fIn.read(), lang)
 
-    def add_lemma(self, lang, lemma, pos, tags, inflType, trans_ru):
+    def add_lemma(self, lang, lemma, pos, tags, stems, trans_ru):
         if lang not in self.lexemes or len(lemma) <= 0 or len(pos) <= 0:
             return
-        print(lemma, pos, tags, inflType, trans_ru)
+        print(lemma, pos, tags, stems, trans_ru)
 
     def search(self, lang, lemma, pos):
         if lang not in self.lexemes or (lemma, pos) not in self.lexemes[lang]:
             return []
         return self.lexemes[lang][(lemma, pos)]
 
+    def get_stems(self, lang, lemma, pos, tags):
+        stems = []
+        if lang == 'udmurt':
+            if pos == 'V':
+                if lemma.endswith(('аны', 'яны')):
+                    stems.append({
+                        'stem': lemma[:-2] + '.',
+                        'paradigm': 'connect_verbs-II'
+                    })
+                    tags.append('II')
+                elif lemma.endswith('ьыны'):
+                    stems.append({
+                        'stem': lemma[:-4] + '.',
+                        'paradigm': 'connect_verbs-I-soft'
+                    })
+                    tags.append('I')
+                elif lemma.endswith('йыны'):
+                    stems.append({
+                        'stem': lemma[:-3] + '.|' + lemma[:-4] + '.',
+                        'paradigm': 'connect_verbs-I'
+                    })
+                    tags.append('I')
+                elif lemma.endswith('ыны'):
+                    stems.append({
+                        'stem': lemma[:-4] + '.',
+                        'paradigm': 'connect_verbs-I'
+                    })
+                    tags.append('I')
+        return stems, tags
+
+    def fix_tags(self, lang, pos, tags):
+        addTags = set()
+        delTags = set()
+        if 'PN' in tags and 'rus' in tags and pos != 'V':
+            delTags.add('rus')
+        if ('PN' not in tags and ('persn' in tags or 'famn' in tags
+                                  or 'patrn' in tags or 'topn' in tags)
+            and pos in ('N', 'A', 'ADJ')):
+                addTags.add('PN')
+        if pos != 'V':
+            delTags.add('tr')
+            delTags.add('intr')
+            delTags.add('impers')
+            delTags.add('with_abl')
+            delTags.add('with_dat')
+            delTags.add('with_el')
+            delTags.add('with_ill')
+            delTags.add('with_inf')
+            delTags.add('with_instr')
+        else:
+            delTags.add('PN')
+            delTags.add('persn')
+            delTags.add('famn')
+            delTags.add('patrn')
+            delTags.add('topn')
+            delTags.add('time_meas')
+            delTags.add('body')
+            delTags.add('anim')
+            delTags.add('hum')
+            delTags.add('transport')
+            delTags.add('supernat')
+        tags = list((set(tags) | addTags) - delTags)
+        return tags
+
     def parse_query(self, lang, query):
         lemma = ''
         pos = ''
-        tags = ''
-        inflType = ''
+        tags = []
+        stems = []
         trans_ru = ''
         if lang not in self.languages:
-            return lemma, pos, tags, inflType, trans_ru
+            return lemma, pos, tags, stems, trans_ru
         for k in sorted(query):
+            print(k, query[k])
             if k == 'lemma':
                 lemma = query[k]
             elif k == 'pos':
                 pos = query[k]
-            elif k == 'inflType':
-                inflType = query[k]
             elif k == 'trans_ru':
                 trans_ru = query[k]
-            else:
-                if len(tags) > 0:
-                    tags += ','
-                tags += query[k]
-        return lemma, pos, tags, inflType, trans_ru
+            elif len(query[k]) > 0:
+                for tag in query[k].split(','):
+                    tag = tag.strip()
+                    if len(tag) > 0:
+                        tags.append(tag)
+        stems, tags = self.get_stems(lang, lemma, pos, tags)
+        tags = self.fix_tags(lang, pos, tags)
+        return lemma, pos, tags, stems, trans_ru

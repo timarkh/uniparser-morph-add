@@ -64,6 +64,116 @@
 				"pos": "PART",
 				"name_ru": "частица"
 			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип существительного",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "time_meas",
+						"name_ru": "единица измерения времени"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; только для нарицательных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					},
+					{
+						"tags": "impers",
+						"name_ru": "безличный"
+					}
+				]
+			},
+			{
+				"label_ru": "возможен аргумент в аблативе",
+				"tags": "with_abl",
+				"optional": true
+			},
+			{
+				"label_ru": "возможен аргумент в дативе",
+				"tags": "with_dat",
+				"optional": true
+			},
+			{
+				"label_ru": "возможен аргумент в элативе",
+				"tags": "with_el",
+				"optional": true
+			},
+			{
+				"label_ru": "возможен аргумент в иллативе",
+				"tags": "with_ill",
+				"optional": true
+			},
+			{
+				"label_ru": "возможен инфинитивный аргумент",
+				"tags": "with_inf",
+				"optional": true
+			},
+			{
+				"label_ru": "возможен аргумент в инструменталисе",
+				"tags": "with_instr",
+				"optional": true
+			}
 		]
 	},
 	"komi_zyrian": {

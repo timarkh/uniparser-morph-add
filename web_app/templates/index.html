@@ -8,9 +8,10 @@
   <meta name="author" content="">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
   <script type='text/javascript' src='static/js/ajax_queries.js'></script>
+  <script type='text/javascript'>var curLang = "{{ lang }}";</script>
 {% if lang %}
   <title>Пополнить словарь: {{ languages[lang].name_ru }}</title>
 {% else %}
@@ -25,29 +26,48 @@
 	<div class="col-lg-8 mx-auto">
 		<form id="lex_form">
 		<div class="form-group row">
-			<label for="input_lemma" class="col-form-label col-sm-2" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
-			<div class="col-sm-5"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
+			<label for="input_lemma" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
+			<div class="col-sm-6"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
 		</div>
 		<div class="form-group row">
-			<label for="input_trans_ru" class="col-form-label col-sm-2" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
-			<div class="col-sm-5"><input type="text" class="form-control form-control-trans" name="trans_ru" id="input_trans_ru"></div>
+			<label for="input_trans_ru" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
+			<div class="col-sm-6"><input type="text" class="form-control form-control-trans" name="trans_ru" id="input_trans_ru"></div>
 		</div>
 		<div class="form-group row">
-			<label for="input_pos" class="col-form-label col-sm-2" style="text-align: right;">Часть речи:</label>
-			<div class="col-sm-5">
+			<label for="input_pos" class="col-form-label col-sm-3" style="text-align: right;">Часть речи:</label>
+			<div class="col-sm-6">
 				<select class="form-control" name="pos" id="input_pos">
 				{% for pos in languages[lang].pos %}
-					<option value="{{ pos.value }}">{{ pos.name_ru }} ({{ pos.pos }})</option>
+					<option value="{{ pos.pos }}">{{ pos.name_ru }} ({{ pos.pos }})</option>
 				{% endfor %}
 				</select>
 			</div>
 		</div>
+		<hr>
+		{% for el in languages[lang].tags %}
+			<div class="form-group row{% if el.optional %} form-group-optional{% endif %}">
+				{% if el.tags %}
+				<input class="form-check-input" type="checkbox" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}" value="{{ el.tags }}">
+				{% endif %}
+				<label for="tags_{{ loop.index }}" class="{% if el.tags %}form-check-label{% else %}col-form-label col-sm-3{% endif %}"{% if el.options %} style="text-align: right;"{% endif %}>
+					{% if el.optional %}<abbr title="Заполнить это поле желательно, но не обязательно.">{% endif %}
+						{{ el.label_ru }}{% if el.tags %} ({{ el.tags }}){% endif %}
+					{% if el.optional %}</abbr>{% endif %}
+				</label>
+				{% if el.options %}
+				<div class="col-sm-6">
+					<select class="form-control" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}">
+					{% for option in el.options %}
+						<option value="{{ option.tags }}">{{ option.name_ru }} ({{ option.tags }})</option>
+					{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+			</div>
+		{% endfor %}
 		</form>
 	</div>
-	<div class="col-lg-8 mx-auto" id="tag_buttons">
-		<p></p>
-	</div>
-	<button id="save_dict" type="button" class="btn btn-primary">Добавить</button> 
+	<button id="add_lemma" type="button" class="btn btn-primary">Добавить</button> 
 {% else %}
 	<h2>Пополнение грамматических словарей uniparser-morph</h2>
 	<p class="lead">Выберите язык (литературный стандарт):</p>

@@ -1,0 +1,10 @@
+cd udmurt
+git pull
+cd ../komi_zyrian
+git pull
+cd ../meadow_mari
+git pull
+cd ../erzya
+git pull
+cd ../moksha
+git pull
