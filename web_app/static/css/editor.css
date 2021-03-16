@@ -29,6 +29,11 @@
 	border-radius: 4px;
 }
 
+#main_row {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
 .form-control:focus {
 	color: black;
 }
@@ -52,24 +57,4 @@
 .col-form-label, .form-check-label {
 	padding-right: 3px;
 	color: #495057;
-}
-
-.edit_header {
-	background: skyblue;
-	padding: 15px;
-	color: white;
-	font-size: 1.2rem;
-	margin-top: 100px;
-	margin-bottom: 25px;
-	border-radius: 10px 10px 0px 0px;
-}
-
-#time_stats {
-	margin-top: 15px;
-	font-size: 0.75rem;
-	color: gray;
-}
-
-#tag_buttons {
-	margin-top: 50px;
 }

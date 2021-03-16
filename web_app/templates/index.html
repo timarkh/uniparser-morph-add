@@ -24,12 +24,16 @@
 	<h2>Пополнение грамматического словаря ({{ languages[lang].name_ru }})</h2>
 	<p class="lead">Заполните поля и нажмите &laquo;Добавить&raquo; или Enter.</p>
 	<p>Если у Вас есть список неразобранных словоформ (по одной на строчку), можно вставить его в поле справа; слова будут подставляться в поле &laquo;лемма&raquo; по очереди. Если слово из списка нужно пропустить, нажмите стрелку вправо.</p>
-	<div class="row">
+	<div class="row" id="main_row">
 		<div class="col-lg-8 mx-auto">
 			<form id="lex_form">
 			<div class="form-group row">
 				<label for="input_lemma" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
 				<div class="col-sm-6"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
+			</div>
+			<div class="form-group row">
+				<label for="input_lexref" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Если лемма выше является нестандартным вариантом какой-либо стандартной леммы, последнюю можно записать здесь. В противном случае оставьте поле пустым.">(Стандартная форма)</abbr>:</label>
+				<div class="col-sm-6"><input type="text" class="form-control form-control-lexref" name="lexref" id="input_lexref"></div>
 			</div>
 			<div class="form-group row">
 				<label for="input_trans_ru" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
@@ -98,7 +102,8 @@
         		</button>
 			</div>
 			<div class="modal-body" id="lexeme_exists_body">
-				<p>Похожая лексема или лексемы уже есть словаре. Если это та же самая лексема, но какая-то её форма не разбирается, вводить её заново не надо. Вместо этого можно написать сообщение об ошибке в репозитории морфологического анализатора.</p>
+				<p>Похожая лексема или лексемы уже есть словаре. Если это та же самая лексема, но какая-то её форма не разбирается, вводить её заново не надо. Вместо этого можно <a href="{{ languages[lang].issues_url }}">написать сообщение об ошибке</a> в репозитории морфологического анализатора.</p>
+				<p>В словаре найдены следующие записи:</p>
 				<pre id="old_lexemes"></pre>
 			</div>
 			<div class="modal-footer">

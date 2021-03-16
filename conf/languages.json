@@ -1,6 +1,7 @@
 ﻿{
 	"udmurt": {
 		"repo": "uniparser-grammar-udm",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-udm/issues/new",
 		"id": "udm",
 		"name_ru": "удмуртский",
 		"pos": [
@@ -178,21 +179,25 @@
 	},
 	"komi_zyrian": {
 		"repo": "uniparser-grammar-komi-zyrian",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-komi-zyrian/issues/new",
 		"id": "kpv",
 		"name_ru": "коми-зырянский"
 	},
 	"meadow_mari": {
 		"repo": "uniparser-grammar-meadow-mari",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-meadow-mari/issues/new",
 		"id": "mhr",
 		"name_ru": "луговой марийский"
 	},
 	"erzya": {
 		"repo": "uniparser-grammar-erzya",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-erzya/issues/new",
 		"id": "myv",
 		"name_ru": "эрзянский"
 	},
 	"moksha": {
 		"repo": "uniparser-grammar-moksha",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-moksha/issues/new",
 		"id": "mdf",
 		"name_ru": "мокшанский"
 	}

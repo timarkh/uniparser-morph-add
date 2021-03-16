@@ -40,6 +40,7 @@ function get_next_word() {
 	var nextLemma = splitLines.shift();
 	$('#wf_list').val(splitLines.join('\n'));
 	$('#input_lemma').val(nextLemma);
+	$('#input_lexref').val('');
 	$('#input_trans_ru').val(nextLemma);
 	$('#input_pos').val($("#input_pos option:first").val());
 	$('select.form-control').each(function(index) {

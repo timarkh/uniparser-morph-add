@@ -50,10 +50,30 @@ class GrammDict:
                 with open(os.path.join(repoRoot, fname), 'r', encoding='utf-8-sig') as fIn:
                     self.load_dict(fIn.read(), lang)
 
-    def add_lemma(self, lang, lemma, pos, tags, stems, trans_ru):
+    def add_lemma(self, lang, lemma, lexref, pos, tags, stems, trans_ru):
         if lang not in self.lexemes or len(lemma) <= 0 or len(pos) <= 0:
             return
-        print(lemma, pos, tags, stems, trans_ru)
+        # print(lemma, lexref, pos, tags, stems, trans_ru)
+        if len(pos) <= 0 or len(stems) <= 0:
+            return
+        lex = ''
+        if len(lexref) > 0:
+            lemma = lexref
+        for stem in stems:
+            lex += '-lexeme\n'
+            lex += ' lex: ' + lemma + '\n'
+            lex += ' gramm: ' + pos
+            if len(tags) > 0:
+                lex += ',' + ','.join(tags)
+            lex += '\n'
+            lex += ' stem: ' + stem['stem'] + '\n'
+            if type(stem['paradigm']) == list:
+                lex += '\n'.join(' paradigm: ' + p for p in stem['paradigm']) + '\n'
+            else:
+                lex += ' paradigm: ' + stem['paradigm'] + '\n'
+            lex += ' trans_ru: ' + trans_ru + '\n\n'
+        with open(os.path.join('web_app', lang, 'new_lexemes.txt'), 'a', encoding='utf-8') as fOut:
+            fOut.write(lex)
 
     def search(self, lang, lemma, pos):
         if lang not in self.lexemes or (lemma, pos) not in self.lexemes[lang]:
@@ -126,6 +146,7 @@ class GrammDict:
 
     def parse_query(self, lang, query):
         lemma = ''
+        lexref = ''
         pos = ''
         tags = []
         stems = []
@@ -136,6 +157,8 @@ class GrammDict:
             print(k, query[k])
             if k == 'lemma':
                 lemma = query[k]
+            elif k == 'lexref':
+                lexref = query[k]
             elif k == 'pos':
                 pos = query[k]
             elif k == 'trans_ru':
@@ -147,4 +170,4 @@ class GrammDict:
                         tags.append(tag)
         stems, tags = self.get_stems(lang, lemma, pos, tags)
         tags = self.fix_tags(lang, pos, tags)
-        return lemma, pos, tags, stems, trans_ru
+        return lemma, lexref, pos, tags, stems, trans_ru
