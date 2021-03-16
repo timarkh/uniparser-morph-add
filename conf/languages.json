@@ -68,7 +68,7 @@
 		],
 		"tags": [
 			{
-				"label_ru": "Тип сущ.",
+				"label_ru": "Тип сущ./прил.",
 				"options": [
 					{
 						"tags": "",
@@ -117,6 +117,10 @@
 					{
 						"tags": "PN",
 						"name_ru": "другой вид имени собственного"
+					},
+					{
+						"tags": "oblin",
+						"name_ru": "облинатив (прилагательное на -эсь)"
 					}
 				]
 			},
@@ -181,24 +185,634 @@
 		"repo": "uniparser-grammar-komi-zyrian",
 		"issues_url": "https://github.com/timarkh/uniparser-grammar-komi-zyrian/issues/new",
 		"id": "kpv",
-		"name_ru": "коми-зырянский"
+		"name_ru": "коми-зырянский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "A",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTRJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PREDIC",
+				"name_ru": "предикатив"
+			},
+			{
+				"pos": "APRO",
+				"name_ru": "местоимение-прилагательное"
+			},
+			{
+				"pos": "ADVPRO",
+				"name_ru": "местоимение-наречие"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "другое местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "nmlz_in",
+						"name_ru": "локативная номинализация на -ин"
+					},
+					{
+						"tags": "nmlz_lun",
+						"name_ru": "абстрактное существительное на -лун"
+					},
+					{
+						"tags": "nmlz_tor",
+						"name_ru": "абстрактное существительное на -тор"
+					},
+					{
+						"tags": "time_meas",
+						"name_ru": "единица измерения времени"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					},
+					{
+						"tags": "oblin",
+						"name_ru": "облинатив (прилагательное на -ӧсь)"
+					}
+				]
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					},
+					{
+						"tags": "impers",
+						"name_ru": "безличный"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; только для нарицательных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			}
+		]
 	},
 	"meadow_mari": {
 		"repo": "uniparser-grammar-meadow-mari",
 		"issues_url": "https://github.com/timarkh/uniparser-grammar-meadow-mari/issues/new",
 		"id": "mhr",
-		"name_ru": "луговой марийский"
+		"name_ru": "луговой марийский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "A",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTRJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PREDIC",
+				"name_ru": "предикатив"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Спряжение (гл.)",
+				"options": [
+					{
+						"tags": "conj_a",
+						"name_ru": "1-е (на -а)"
+					},
+					{
+						"tags": "conj_e",
+						"name_ru": "2-е (на -е)"
+					}
+				]
+			},
+			{
+				"label_ru": "Исход основы (сущ., прил.)",
+				"options": [
+					{
+						"tags": "consonant",
+						"name_ru": "согласный"
+					},
+					{
+						"tags": "oxyton",
+						"name_ru": "ударный гласный"
+					}
+					{
+						"tags": "paroxyton",
+						"name_ru": "безударный гласный"
+					}
+				]
+			},
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					},
+					{
+						"tags": "impers",
+						"name_ru": "безличный"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; только для нарицательных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			}
+		]
 	},
 	"erzya": {
 		"repo": "uniparser-grammar-erzya",
 		"issues_url": "https://github.com/timarkh/uniparser-grammar-erzya/issues/new",
 		"id": "myv",
-		"name_ru": "эрзянский"
+		"name_ru": "эрзянский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "A",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTRJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PREDIC",
+				"name_ru": "предикатив"
+			},
+			{
+				"pos": "APRO",
+				"name_ru": "местоимение-прилагательное"
+			},
+			{
+				"pos": "ADVPRO",
+				"name_ru": "местоимение-наречие"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "другое местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "dim",
+						"name_ru": "диминутив"
+					},
+					{
+						"tags": "time_meas",
+						"name_ru": "единица измерения времени"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					},
+					{
+						"tags": "impers",
+						"name_ru": "безличный"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; только для нарицательных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			}
+		]
 	},
 	"moksha": {
 		"repo": "uniparser-grammar-moksha",
 		"issues_url": "https://github.com/timarkh/uniparser-grammar-moksha/issues/new",
 		"id": "mdf",
-		"name_ru": "мокшанский"
+		"name_ru": "мокшанский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "A",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTRJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PREDIC",
+				"name_ru": "предикатив"
+			},
+			{
+				"pos": "APRO",
+				"name_ru": "местоимение-прилагательное"
+			},
+			{
+				"pos": "ADVPRO",
+				"name_ru": "местоимение-наречие"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "другое местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "dim",
+						"name_ru": "диминутив"
+					},
+					{
+						"tags": "time_meas",
+						"name_ru": "единица измерения времени"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					},
+					{
+						"tags": "impers",
+						"name_ru": "безличный"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; только для нарицательных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			}
+		]
 	}
 }
