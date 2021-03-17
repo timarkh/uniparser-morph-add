@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import copy
+from datetime import datetime
+import json
 from .grammdict import GrammDict
 
 gd = GrammDict()
@@ -36,6 +38,9 @@ def add_lemma(lang):
     if lang not in gd.languages:
         return jsonify({'message': 'Такого языка нет в списке.'})
     query = copy_request_args()
+    with open('query_log.txt', 'a', encoding='utf-8') as fLog:
+        fLog.write(datetime.now().isoformat(timespec='seconds') + '\t' + lang + '\n')
+        fLog.write(json.dumps(query, ensure_ascii=False, indent=2) + '\n\n')
     lemma, lexref, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
     oldLexemes = gd.search(lang, lemma, pos)
     if len(oldLexemes) > 0:

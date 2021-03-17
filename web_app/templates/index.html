@@ -23,24 +23,32 @@
 {% if lang %}
 	<h2>Пополнение грамматического словаря ({{ languages[lang].name_ru }})</h2>
 	<p class="lead">Заполните поля и нажмите &laquo;Добавить&raquo; или Enter.</p>
-	<p>Если у Вас есть список неразобранных словоформ (по одной на строчку), можно вставить его в поле справа; слова будут подставляться в поле &laquo;лемма&raquo; по очереди. Если слово из списка нужно пропустить, нажмите стрелку вправо.</p>
+	<div class="row">
+		<div class="col-sm-8">
+			<p>Если у Вас есть список неразобранных словоформ (по одной на строчку), можно вставить его в поле справа; слова будут подставляться в поле &laquo;лемма&raquo; по очереди. Если слово из списка нужно пропустить, нажмите стрелку вправо.</p>
+		</div>
+		<div class="col-sm-3">
+			<button id="show_manual" type="button" class="btn btn-info btn-lg">Инструкция</button>
+		</div>
+	</div>
+	<hr>
 	<div class="row" id="main_row">
-		<div class="col-lg-8 mx-auto">
+		<div class="col-sm-8">
 			<form id="lex_form">
 			<div class="form-group row">
-				<label for="input_lemma" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
+				<label for="input_lemma" class="col-form-label col-sm-4 col-md-3" style="text-align: right;"><abbr title="Начальная форма слова. Для продуктивных глагольных залогов используйте лемму без залоговых суффиксов, если она существует.">Лемма</abbr>:</label>
 				<div class="col-sm-6"><input type="text" class="form-control form-control-lemma" name="lemma" id="input_lemma"></div>
 			</div>
 			<div class="form-group row">
-				<label for="input_lexref" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Если лемма выше является нестандартным вариантом какой-либо стандартной леммы, последнюю можно записать здесь. В противном случае оставьте поле пустым.">(Стандартная форма)</abbr>:</label>
+				<label for="input_lexref" class="col-form-label col-sm-4 col-md-3" style="text-align: right;"><abbr title="Если лемма выше является нестандартным вариантом какой-либо стандартной леммы, последнюю можно записать здесь. В противном случае оставьте поле пустым.">(Стандартная форма)</abbr>:</label>
 				<div class="col-sm-6"><input type="text" class="form-control form-control-lexref" name="lexref" id="input_lexref"></div>
 			</div>
 			<div class="form-group row">
-				<label for="input_trans_ru" class="col-form-label col-sm-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
+				<label for="input_trans_ru" class="col-form-label col-sm-4 col-md-3" style="text-align: right;"><abbr title="Краткий вспомогательный перевод на русский язык: одно или несколько слов.">Перевод:</abbr></label>
 				<div class="col-sm-6"><input type="text" class="form-control form-control-trans" name="trans_ru" id="input_trans_ru"></div>
 			</div>
 			<div class="form-group row">
-				<label for="input_pos" class="col-form-label col-sm-3" style="text-align: right;">Часть речи:</label>
+				<label for="input_pos" class="col-form-label col-sm-4 col-md-3" style="text-align: right;">Часть речи:</label>
 				<div class="col-sm-6">
 					<select class="form-control" name="pos" id="input_pos">
 					{% for pos in languages[lang].pos %}
@@ -55,7 +63,7 @@
 					{% if el.tags %}
 					<input class="form-check-input" type="checkbox" name="tags_{{ loop.index }}" id="tags_{{ loop.index }}" value="{{ el.tags }}">
 					{% endif %}
-					<label for="tags_{{ loop.index }}" class="{% if el.tags %}form-check-label{% else %}col-form-label col-sm-3{% endif %}"{% if el.options %} style="text-align: right;"{% endif %}>
+					<label for="tags_{{ loop.index }}" class="{% if el.tags %}form-check-label{% else %}col-form-label col-sm-4 col-md-3{% endif %}"{% if el.options %} style="text-align: right;"{% endif %}>
 						{% if el.optional %}<abbr title="Заполнить это поле желательно, но не обязательно.">{% endif %}
 							{{ el.label_ru }}{% if el.tags %} ({{ el.tags }}){% endif %}
 						{% if el.optional %}</abbr>{% endif %}
@@ -73,7 +81,7 @@
 			{% endfor %}
 			</form>
 		</div>
-		<div class="col-lg-3" id="wf_list_div">
+		<div class="col-sm-3" id="wf_list_div">
 			<textarea id="wf_list"></textarea>
 		</div>
 	</div>
@@ -97,10 +105,10 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="lexeme_exists_header">Grammar selection header</h5>
+				<h5 class="modal-title" id="lexeme_exists_header">Такая лексема существует</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-          			<span aria-hidden="true">&times;</span>
-        		</button>
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			<div class="modal-body" id="lexeme_exists_body">
 				<p>Похожая лексема или лексемы уже есть словаре. Если это та же самая лексема, но какая-то её форма не разбирается, вводить её заново не надо. Вместо этого можно <a href="{{ languages[lang].issues_url }}">написать сообщение об ошибке</a> в репозитории морфологического анализатора.</p>
@@ -110,6 +118,35 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default btn-success" aria-label="Всё равно добавить" id="lexeme_exists_ok">Всё равно добавить</button>
 				<button type="button" class="btn btn-default btn-danger" aria-label="Нет, так быть не должно" id="lexeme_exists_cancel" data-bs-dismiss="modal">Нет, так быть не должно</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="manual" tabindex="-1" role="dialog" aria-labelledby="manual_header" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="manual_header">Краткая инструкция</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="manual_body">
+				<h5>Как добавлять лексемы</h5>
+				<p>Добавлять в словарь парсера нужно только лексемы (и незаимствованные, и заимствованные), которые существуют в языке и могут встретиться за пределами текста, который Вы разбираете. При этом нужно придерживаться следующих правил:</p>
+				<ul>
+					<li>Неоднозначные одно- и двухбуквенные сокращения (например, <em>С.</em> в значении &laquo;страница&raquo;) вносить не нужно.</li>
+					<li>Если в разбираемом слове содержится опечатка или орфографическая ошибка, внесите его в поле &laquo;Лемма&raquo; как есть, но не забудьте указать стандартную форму в поле &laquo;Стандартная форма&raquo;.</li>
+					<li>То же касается диалектных лексем, у которых есть однозначное литературное соответствие, а также особых написаний стандартных лемм (например, <em>Кондра-а-атьич</em>).</li>
+					<li>Некоторые продуктивные словообразовательные суффиксы в парсерах включены в грамматику, а не в лексику. Это касается, например, продуктивных глагольных залогов (пассив, каузатив, итератив, инхоатив) и атрибутивов (-о, -ем, -тэм в удмуртском; -а, -са в коми; -ан, -ле, -се, -дыме в марийском). В словарь необходимо вносить лексемы без этих суффиксов, кроме случаев, когда лексема без суффикса не существует.</li>
+					<li>Лемму имён собственных необходимо начинать с заглавной буквы.</li>
+				</ul>
+				<p>Введённые Вами лексемы будут попадать в словрь не сразу, а после проверки (вероятно, это будет происходить примерно раз в неделю). Если Вы случайно ввели что-то не то, ничего страшного не случится; просто напишите об этом Тимофею Архангельскому.</p>
+				<h5>Список словоформ</h5>
+				<p>Если у Вас есть список неразобранных словоформ, который нужно обработать (по одной на строку), его можно вставить в текстовое поле справа. Тогда при сохранении лексемы автоматически будет подставляться слово из этого списка.</p>
+				<h5>Горячие клавиши</h5>
+				<p>Клавиша Enter сохраняет лексему, если в поле &laquo;Лемма&raquo; что-то введено. Если список слов заполнен, клавиша со стрелкой вправо подставляет в поле &laquo;Лемма&raquo; следующее слово из списка, не сохраняя текущее.</p>
 			</div>
 		</div>
 	</div>

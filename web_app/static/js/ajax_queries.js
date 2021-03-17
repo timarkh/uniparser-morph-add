@@ -68,6 +68,10 @@ function hide_modal() {
 	$('#lexeme_exists').modal('hide');
 }
 
+function show_manual() {
+	$('#manual').modal('show');
+}
+
 function process_keypress(e) {
 	if (e.key == "ArrowRight") {
 		get_next_word();
@@ -80,6 +84,8 @@ function process_keypress(e) {
 function assign_input_events() {
 	$("#add_lemma").unbind('click');
 	$("#add_lemma").click(add_lemma);
+	$("#show_manual").unbind('click');
+	$("#show_manual").click(show_manual);
 	$("#lexeme_exists_ok").unbind('click');
 	$("#lexeme_exists_ok").click(add_lemma_anyway);
 	$("#lexeme_exists_cancel").unbind('click');

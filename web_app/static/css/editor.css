@@ -58,3 +58,7 @@
 	padding-right: 3px;
 	color: #495057;
 }
+
+.modal-dialog {
+	max-width: 60vw;
+}
