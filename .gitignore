@@ -8,4 +8,5 @@ web_app/erzya/uniparser-grammar-erzya/*
 web_app/moksha/uniparser-grammar-moksha/*
 new_lexemes.txt
 new_lexemes_*.txt
+new_lexrules.txt
 query_log.txt

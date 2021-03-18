@@ -22,6 +22,12 @@ class GrammDict:
         for lang in self.languages:
             self.initialize_language(lang)
 
+    def add_lex_to_dict(self, lang, lemma, pos, text):
+        if (lemma, pos) not in self.lexemes[lang]:
+            self.lexemes[lang][(lemma, pos)] = [text]
+        else:
+            self.lexemes[lang][(lemma, pos)].append(text)
+
     def load_dict(self, text, lang):
         """
         Find all lemmata in a string and return them as a list of lists [[key, value],...].
@@ -39,19 +45,23 @@ class GrammDict:
                     posTags = re.findall('[A-Z][A-Z_-]*', line[1])
                     if len(posTags) > 0:
                         pos = posTags[0]
-            if (lemma, pos) not in self.lexemes[lang]:
-                self.lexemes[lang][(lemma, pos)] = [lex]
-            else:
-                self.lexemes[lang][(lemma, pos)].append(lex)
+            self.add_lex_to_dict(lang, lemma, pos, lex)
 
     def initialize_language(self, lang):
         if lang not in self.languages:
             return
         self.lexemes[lang] = {}
+        # Analyzer dictionary
         repoRoot = os.path.join('web_app', lang, self.languages[lang]['repo'])
         for fname in os.listdir(repoRoot):
             if fname.endswith('.txt') and fname.startswith(self.languages[lang]['id'] + '_lexemes'):
                 with open(os.path.join(repoRoot, fname), 'r', encoding='utf-8-sig') as fIn:
+                    self.load_dict(fIn.read(), lang)
+        # Words entered previously
+        langRoot = os.path.join('web_app', lang)
+        for fname in os.listdir(langRoot):
+            if fname.endswith('.txt') and fname.startswith('new_lexemes'):
+                with open(os.path.join(langRoot, fname), 'r', encoding='utf-8-sig') as fIn:
                     self.load_dict(fIn.read(), lang)
 
     def add_lemma(self, lang, lemma, lexref, pos, tags, stems, trans_ru):
@@ -70,14 +80,21 @@ class GrammDict:
             if len(tags) > 0:
                 lex += ',' + ','.join(tags)
             lex += '\n'
-            lex += ' stem: ' + stem['stem'] + '\n'
+            lex += ' stem: ' + stem['stem'].lower() + '\n'
             if type(stem['paradigm']) == list:
                 lex += '\n'.join(' paradigm: ' + p for p in stem['paradigm']) + '\n'
             else:
                 lex += ' paradigm: ' + stem['paradigm'] + '\n'
             lex += ' trans_ru: ' + trans_ru + '\n\n'
-        with open(os.path.join('web_app', lang, 'new_lexemes_' + pos + '.txt'), 'a', encoding='utf-8') as fOut:
+        fname = 'new_lexemes_' + pos + '.txt'
+        if 'PN' in tags:
+            fname = 'new_lexemes_PN.txt'
+        elif 'prod_deriv' in tags:
+            fname = 'new_lexrules.txt'
+        with open(os.path.join('web_app', lang, fname),
+                  'a', encoding='utf-8') as fOut:
             fOut.write(lex)
+        self.add_lex_to_dict(lang, lemma, pos, lex)
 
     def search(self, lang, lemma, pos):
         if lang not in self.lexemes or (lemma, pos) not in self.lexemes[lang]:
