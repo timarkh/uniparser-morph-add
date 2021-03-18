@@ -66,3 +66,18 @@
 .label_small {
 	font-size: 0.9em;
 }
+
+@keyframes blinkEmail {
+  0%   { background-color: white; color: black; }
+  30%  { background-color: #d13b3b; color: white; }
+  50%  { background-color: #ff9f99; color: white; }
+  70%  { background-color: #d13b3b; color: white; }
+  100% { background-color: white; color: black; }
+}
+
+.row_annotator {
+	animation: blinkEmail 2s;
+	border-radius: 4px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}

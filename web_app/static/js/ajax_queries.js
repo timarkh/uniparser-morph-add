@@ -56,6 +56,7 @@ function process_response(data) {
 		$('#response_message').html(data.message);
 		$('#response_message').toggleClass('show');
 		setTimeout(function() { $('#response_message').toggleClass('show'); }, 1000);
+		$('#lexemes_added').html(data.lexemes_added);
 		get_next_word();
 	}
 	else if (data.lexemes) {

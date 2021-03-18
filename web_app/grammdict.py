@@ -7,6 +7,7 @@ class GrammDict:
     """
     Represents one file with the description of stems.
     """
+    rxAnnotatorsLine = re.compile('^[^\t\n]*\t[^\t\n]*\t[^\t\n]*\t[^\t\n]*\t[^\t\n]*$')
     rxLexeme = re.compile('-lexeme\n(?: [^\r\n]+\n)+', flags=re.DOTALL)
     rxLines = re.compile('(?<=\n) ([^:\r\n]+): *([^\r\n]*)(?=\n)', flags=re.DOTALL)
     rxFieldNum = re.compile('_[0-9]+$', flags=re.DOTALL)
@@ -21,6 +22,17 @@ class GrammDict:
         self.lexemes = {}       # {lang: {(lemma, POS): text}}
         for lang in self.languages:
             self.initialize_language(lang)
+        self.annotators = {}
+        if os.path.exists('annotators.txt'):
+            with open('annotators.txt', 'r', encoding='utf-8') as fAnnotators:
+                for line in fAnnotators:
+                    line = line.strip('\r\n')
+                    if self.rxAnnotatorsLine.search(line) is None:
+                        continue
+                    annotator, lang, lemma, pos, stem = line.split('\t')
+                    if annotator not in self.annotators:
+                        self.annotators[annotator] = set()
+                    self.annotators[annotator].add((lang, lemma, pos, stem))
 
     def add_lex_to_dict(self, lang, lemma, pos, text):
         if (lemma, pos) not in self.lexemes[lang]:
@@ -64,7 +76,7 @@ class GrammDict:
                 with open(os.path.join(langRoot, fname), 'r', encoding='utf-8-sig') as fIn:
                     self.load_dict(fIn.read(), lang)
 
-    def add_lemma(self, lang, lemma, lexref, pos, tags, stems, trans_ru):
+    def add_lemma(self, lang, annotator, lemma, lexref, pos, tags, stems, trans_ru):
         if lang not in self.lexemes or len(lemma) <= 0 or len(pos) <= 0:
             return
         # print(lemma, lexref, pos, tags, stems, trans_ru)
@@ -96,10 +108,27 @@ class GrammDict:
             fOut.write(lex)
         self.add_lex_to_dict(lang, lemma, pos, lex)
 
+        if len(annotator) > 0:
+            joinedStem = '$'.join(stem['stem'] for stem in sorted(stems))
+            if annotator not in self.annotators:
+                self.annotators[annotator] = set()
+            self.annotators[annotator].add((lang, lemma, pos, joinedStem))
+            with open('annotators.txt', 'a', encoding='utf-8') as fAnnotators:
+                fAnnotators.write(annotator + '\t'
+                                  + lang + '\t'
+                                  + lemma + '\t'
+                                  + pos + '\t'
+                                  + joinedStem + '\n')
+
     def search(self, lang, lemma, pos):
         if lang not in self.lexemes or (lemma, pos) not in self.lexemes[lang]:
             return []
         return self.lexemes[lang][(lemma, pos)]
+
+    def annotator_stats(self, annotator):
+        if annotator not in self.annotators:
+            return 0
+        return len(self.annotators[annotator])
 
     def get_stems_udmurt(self, lemma, pos, tags):
         stems = []
@@ -857,8 +886,9 @@ class GrammDict:
         tags = []
         stems = []
         trans_ru = ''
+        annotator = ''
         if lang not in self.languages:
-            return lemma, pos, tags, stems, trans_ru
+            return annotator, lemma, pos, tags, stems, trans_ru
         for k in sorted(query):
             if k == 'lemma':
                 lemma = query[k]
@@ -868,6 +898,8 @@ class GrammDict:
                 pos = query[k]
             elif k == 'trans_ru':
                 trans_ru = query[k]
+            elif k == 'annotator':
+                annotator = query[k]
             elif len(query[k]) > 0:
                 for tag in query[k].split(','):
                     tag = tag.strip()
@@ -875,4 +907,4 @@ class GrammDict:
                         tags.append(tag)
         stems, tags = self.get_stems(lang, lemma, pos, tags)
         tags = self.fix_tags(lang, pos, tags)
-        return lemma, lexref, pos, tags, stems, trans_ru
+        return annotator, lemma, lexref, pos, tags, stems, trans_ru

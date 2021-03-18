@@ -41,12 +41,12 @@ def add_lemma(lang):
     with open('query_log.txt', 'a', encoding='utf-8') as fLog:
         fLog.write(datetime.now().isoformat(timespec='seconds') + '\t' + lang + '\n')
         fLog.write(json.dumps(query, ensure_ascii=False, indent=2) + '\n\n')
-    lemma, lexref, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
+    annotator, lemma, lexref, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
     oldLexemes = gd.search(lang, lemma, pos)
     if len(oldLexemes) > 0:
         return jsonify({'lexemes': oldLexemes})
-    gd.add_lemma(lang, lemma, lexref, pos, tags, stems, trans_ru)
-    return jsonify({'message': 'OK'})
+    gd.add_lemma(lang, annotator, lemma, lexref, pos, tags, stems, trans_ru)
+    return jsonify({'message': 'OK', 'lexemes_added': gd.annotator_stats(annotator)})
 
 
 @app.route('/<lang>/add_lemma_anyway')
@@ -54,10 +54,9 @@ def add_lemma_anyway(lang):
     if lang not in gd.languages:
         return jsonify({'message': 'Такого языка нет в списке.'})
     query = copy_request_args()
-    lemma, lexref, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
-    gd.add_lemma(lang, lemma, lexref, pos, tags, stems, trans_ru)
-    return jsonify({'message': 'OK'})
-
+    annotator, lemma, lexref, pos, tags, stems, trans_ru = gd.parse_query(lang, query)
+    gd.add_lemma(lang, annotator, lemma, lexref, pos, tags, stems, trans_ru)
+    return jsonify({'message': 'OK', 'lexemes_added': gd.annotator_stats(annotator)})
 
 
 if __name__ == "__main__":
