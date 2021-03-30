@@ -1,10 +1,10 @@
-cd udmurt
+cd udmurt/uniparser-grammar-udm
 git pull
-cd ../komi_zyrian
+cd ../../komi_zyrian/uniparser-grammar-komi-zyrian
 git pull
-cd ../meadow_mari
+cd ../../meadow_mari/uniparser-grammar-meadow-mari
 git pull
-cd ../erzya
+cd ../../erzya/uniparser-grammar-erzya
 git pull
-cd ../moksha
+cd ../../moksha/uniparser-grammar-moksha
 git pull
