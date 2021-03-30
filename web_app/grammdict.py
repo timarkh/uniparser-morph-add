@@ -406,7 +406,7 @@ class GrammDict:
                 })
             else:
                 stems.append({
-                    'stem': lemma + '.|' + lemma[-1] + 'ы.|' + lemma[-1] + '.',
+                    'stem': lemma + '.|' + lemma[:-1] + 'ы.|' + lemma[:-1] + '.',
                     'paradigm': 'A_paroxyton_v_weak'
                 })
         elif pos == 'N':
@@ -432,7 +432,7 @@ class GrammDict:
                 })
             else:
                 stems.append({
-                    'stem': lemma + '.|' + lemma[-1] + 'ы.|' + lemma[-1] + '.',
+                    'stem': lemma + '.|' + lemma[:-1] + 'ы.|' + lemma[:-1] + '.',
                     'paradigm': 'N_paroxyton_v_weak'
                 })
         elif pos in ('ADV', 'POST'):
@@ -891,15 +891,15 @@ class GrammDict:
             return annotator, lemma, pos, tags, stems, trans_ru
         for k in sorted(query):
             if k == 'lemma':
-                lemma = query[k]
+                lemma = query[k].strip()
             elif k == 'lexref':
-                lexref = query[k]
+                lexref = query[k].strip()
             elif k == 'pos':
-                pos = query[k]
+                pos = query[k].strip()
             elif k == 'trans_ru':
-                trans_ru = query[k]
+                trans_ru = query[k].strip()
             elif k == 'annotator':
-                annotator = query[k]
+                annotator = query[k].strip()
             elif len(query[k]) > 0:
                 for tag in query[k].split(','):
                     tag = tag.strip()
