@@ -272,22 +272,22 @@ class GrammDict:
         elif pos in ('A', 'APRO'):
             if lemma.endswith('ь'):
                 stems.append({
-                    'stem': lemma[:-1] + '.',
+                    'stem': '.' + lemma[:-1] + '.',
                     'paradigm': 'Adj-soft'
                 })
             elif lemma.endswith('й'):
                 stems.append({
-                    'stem': lemma[:-1] + '.',
+                    'stem': '.' + lemma[:-1] + '.',
                     'paradigm': 'Adj-j'
                 })
             elif self.rxLastVowel.search(lemma) is not None:
                 stems.append({
-                    'stem': lemma + '.',
+                    'stem': '.' + lemma + '.',
                     'paradigm': 'Adj-vowel'
                 })
             else:
                 stems.append({
-                    'stem': lemma + '.',
+                    'stem': '.' + lemma + '.',
                     'paradigm': 'Adj-consonant'
                 })
         elif pos == 'N':
