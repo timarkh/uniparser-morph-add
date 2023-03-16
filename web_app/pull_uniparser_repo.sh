@@ -8,3 +8,7 @@ cd ../../erzya/uniparser-grammar-erzya
 git pull
 cd ../../moksha/uniparser-grammar-moksha
 git pull
+cd ../../buryat/uniparser-grammar-buryat
+git pull
+cd ../../ossetic/uniparser-grammar-ossetic
+git pull

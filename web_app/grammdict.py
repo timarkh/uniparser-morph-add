@@ -967,6 +967,128 @@ class GrammDict:
             })
         return stems, tags
 
+    def get_stems_ossetic(self, lemma, pos, tags):
+        stems = []
+        if pos == 'V':
+            stem1 = stem2 = stem3 = lemma[:-2]
+            if 'conj_i_y' in tags:
+                stem2 = re.sub('[иу]([^аеёиоуэюяӕ]*)$', 'ы\\1', stem2)
+                stem3 = re.sub('[иу]([^аеёиоуэюяӕ]*)$', 'ы\\1', stem3)
+            elif 'conj_ae_a' in tags:
+                stem2 = re.sub('ӕ([^аеёиоуэюяӕ]*)$', 'а\\1', stem2)
+                stem3 = re.sub('ӕ([^аеёиоуэюяӕ]*)$', 'а\\1', stem3)
+            elif 'conj_a_ae' in tags:
+                stem2 = re.sub('а([^аеёиоуэюяӕ]*)$', 'ӕ\\1', stem2)
+                stem3 = re.sub('а([^аеёиоуэюяӕ]*)$', 'ӕ\\1', stem3)
+            elif 'conj_au_0' in tags:
+                stem2 = re.sub('[аӕ]у([^аеёиоуэюяӕ]*)$', '\\1', stem2)
+                stem3 = re.sub('[аӕ]у([^аеёиоуэюяӕ]*)$', '\\1', stem3)
+            if 'conj_d_s' in tags:
+                stem2 = re.sub('(д|сс)$', 'c', stem2)
+                stem3 = re.sub('(д|сс)$', 'c', stem3)
+            elif 'conj_dz_gh' in tags:
+                stem2 = re.sub('дз$', 'гъ', stem2)
+                stem3 = re.sub('дз$', 'гъ', stem3)
+            elif 'conj_j_d' in tags:
+                stem2 = re.sub('й$', 'д', stem2)
+                stem3 = re.sub('й$', 'д', stem3)
+            elif 'conj_yn_d' in tags:
+                stem2 = re.sub('ын$', 'д', stem2)
+                stem3 = re.sub('ын$', 'д', stem3)
+            if 'conj_t_t' in tags:
+                stem2 += 'т'
+                stem3 += 'т'
+            elif 'conj_yd_yd' in tags:
+                stem2 += 'ыд'
+                stem3 += 'ыд'
+            elif 'conj_d_d' in tags:
+                stem2 += 'д'
+                stem3 += 'д'
+            elif 'conj_yd_d' in tags:
+                stem2 += 'ыд'
+                stem3 += 'д'
+            elif 'conj_yd_t' in tags:
+                stem2 += 'ыд'
+                stem3 += 'т'
+            elif 'conj_dt_d' in tags:
+                stem2 += 'дт'
+                stem3 += 'д'
+            elif 'conj_ydt_yd' in tags:
+                stem2 += 'ыдт'
+                stem3 += 'ыд'
+            elif 'conj_t_d' in tags:
+                stem2 += 'т'
+                stem3 += 'д'
+            elif 'conj_st_st' in tags:
+                stem2 += 'ст'
+                stem3 += 'ст'
+            if stem1 == stem2 == stem3:
+                stem = stem1 + '.'
+            else:
+                stem = stem1 + '.|' + stem2 + '.|' + stem3 + '.'
+            stem = re.sub('\\bӕ(\\w+)\\.', 'ӕ\\1.//\\1.', stem)
+            if 'tr' in tags:
+                stems.append({
+                    'stem': stem,
+                    'paradigm': 'Vtr'
+                })
+            else:
+                stems.append({
+                    'stem': stem,
+                    'paradigm': 'Vintr'
+                })
+        elif pos in ('N', 'ADJ'):
+            stem1 = stem2 = stem3 = lemma
+            if 'decl_a_ae' in tags:
+                stem3 = re.sub('[ао]([^аеёиоэюяӕ]*)$', 'ӕ\\1', stem3)
+            elif 'decl_ae_0' in tags:
+                stem3 = re.sub('[ӕы]([^аеёиоыэюяӕ]*)$', '\\1', stem3)
+            if 'decl_g_dzh' in tags:
+                stem2 = re.sub('кк$', 'чч', stem2)
+                stem2 = re.sub('къ$', 'чъ', stem2)
+                stem2 = re.sub('к$', 'ч', stem2)
+                stem2 = re.sub('г$', 'дж', stem2)
+                if 'decl_pl_y' in tags:
+                    stem3 = re.sub('кк$', 'чч', stem3)
+                    stem3 = re.sub('къ$', 'чъ', stem3)
+                    stem3 = re.sub('к$', 'ч', stem3)
+                    stem3 = re.sub('г$', 'дж', stem3)
+            if 'decl_pl_y' in tags:
+                stem3 += 'ы'
+                stem3 = re.sub('([сту])\\1джы$', '\\1джы', stem3)
+            elif 'decl_pl_ty' in tags:
+                stem3 += 'ты'
+            elif 'decl_pl_uy' in tags:
+                stem3 += 'уы'
+            elif 'decl_pl_n' in tags:
+                stem3 = re.sub('н$', '', stem3)
+            if stem1 == stem2 == stem3:
+                stem = stem1 + '.'
+            else:
+                stem = stem1 + '.|' + stem2 + '.|' + stem3 + '.'
+            stem = re.sub('\\bӕ(\\w+)\\.', 'ӕ\\1.//\\1.', stem)
+            if 'Nct' in tags:
+                stems.append({
+                    'stem': stem,
+                    'paradigm': 'Nct'
+                })
+            elif 'Nctt' in tags:
+                stems.append({
+                    'stem': stem,
+                    'paradigm': 'Nctt'
+                })
+            else:
+                stems.append({
+                    'stem': stem,
+                    'paradigm': 'Nv'
+                })
+        else:
+            stems.append({
+                'stem': lemma + '.',
+                'paradigm': 'ZERO'
+            })
+        return stems, tags
+
     def get_stems(self, lang, lemma, pos, tags):
         stems = []
         if lang == 'udmurt':
@@ -981,6 +1103,8 @@ class GrammDict:
             stems, tags = self.get_stems_moksha(lemma, pos, tags)
         elif lang == 'buryat':
             stems, tags = self.get_stems_buryat(lemma, pos, tags)
+        elif lang == 'ossetic':
+            stems, tags = self.get_stems_ossetic(lemma, pos, tags)
         return stems, tags
 
     def fix_tags(self, lang, pos, tags):
@@ -989,13 +1113,26 @@ class GrammDict:
                    'consonant', 'oxyton', 'paroxyton', 'conj_a', 'conj_e',
                    'infl_obl_j', 'infl_obl_k', 'infl_pi', 'infl_v_l',
                    'decl_unstable_n', 'decl_ng', 'decl_n',
-                   'syn_front', 'syn_front_lab', 'syn_back', 'syn_back_lab'}
+                   'syn_front', 'syn_front_lab', 'syn_back', 'syn_back_lab',
+                   'Nv', 'Nct', 'Nctt',
+                   'decl_pl_y', 'decl_pl_ty', 'decl_pl_uy', 'decl_pl_n',
+                   'decl_a_ae', 'decl_ae_0', 'decl_g_dzh',
+                   'conj_t_t', 'conj_yd_yd', 'conj_d_d', 'conj_yd_d',
+                   'conj_yd_t', 'conj_dt_d', 'conj_ydt_yd', 'conj_t_d', 'conj_st_st',
+                   'conj_i_y', 'conj_ae_a', 'conj_a_ae', 'conj_au_0',
+                   'conj_d_s', 'conj_dz_gh', 'conj_j_d', 'conj_yn_d'
+                   }
         if 'PN' in tags and 'rus' in tags and pos != 'V':
             delTags.add('rus')
         if ('PN' not in tags and ('persn' in tags or 'famn' in tags
                                   or 'patrn' in tags or 'topn' in tags)
             and pos in ('N', 'A', 'ADJ')):
                 addTags.add('PN')
+        if lang == 'ossetic' and pos == 'N':
+            if 'anim' not in tags and 'inanim' not in tags:
+                addTags.add('inanim')
+            if 'human' not in tags and 'nonhuman' not in tags:
+                addTags.add('nonhuman')
         if pos != 'V':
             delTags.add('tr')
             delTags.add('intr')
@@ -1015,7 +1152,10 @@ class GrammDict:
             delTags.add('time_meas')
             delTags.add('body')
             delTags.add('anim')
+            delTags.add('inanim')
             delTags.add('hum')
+            delTags.add('human')
+            delTags.add('nonhuman')
             delTags.add('transport')
             delTags.add('supernat')
         tags = list((set(tags) | addTags) - delTags)

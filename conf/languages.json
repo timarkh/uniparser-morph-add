@@ -1064,5 +1064,308 @@
 				"tags": "missp"
 			}
 		]
+	},
+	"ossetic": {
+		"repo": "uniparser-grammar-ossetic",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-ossetic/issues/new",
+		"id": "oss",
+		"name_ru": "осетинский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "ADJ",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "PRON",
+				"name_ru": "местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог"
+			},
+			{
+				"pos": "PREP",
+				"name_ru": "предлог"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PTCL",
+				"name_ru": "частица"
+			},
+			{
+				"pos": "PARENTH",
+				"name_ru": "вводное слово"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim,nonhuman",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,human",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "anim,supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "Склонение сущ./прил.",
+				"options": [
+					{
+						"tags": "Nv",
+						"name_ru": "на гласный"
+					},
+					{
+						"tags": "Nct",
+						"name_ru": "на согл., -тӕ"
+					},
+					{
+						"tags": "Nctt",
+						"name_ru": "на согл., -ттӕ"
+					}
+				]
+			},
+			{
+				"label_ru": "Переходность",
+				"options": [
+					{
+						"tags": "intr",
+						"name_ru": "непереходный"
+					},
+					{
+						"tags": "tr",
+						"name_ru": "переходный"
+					}
+				]
+			},
+			{
+				"label_ru": "Сущ.: наращение в мн. ч.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "decl_pl_y",
+						"name_ru": "-ы-"
+					},
+					{
+						"tags": "decl_pl_ty",
+						"name_ru": "-ты-"
+					},
+					{
+						"tags": "decl_pl_uy",
+						"name_ru": "-уы-"
+					},
+					{
+						"tags": "decl_pl_n",
+						"name_ru": "отпадение -н"
+					}
+				]
+			},
+			{
+				"label_ru": "Сущ.: черед. гласного в мн. ч.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "decl_a_ae",
+						"name_ru": "а/ӕ, о/ӕ"
+					},
+					{
+						"tags": "decl_ae_0",
+						"name_ru": "ӕ/0, ы/0"
+					}
+				]
+			},
+			{
+				"label_ru": "Сущ.: черед. согл. в генитиве",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "decl_g_dzh",
+						"name_ru": "г/дж, к/ч, кк/чч, къ/чъ"
+					}
+				]
+			},
+			{
+				"label_ru": "Гл.: наращение основы в прош. вр./имперс.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "conj_t_t",
+						"name_ru": "-т, -т"
+					},
+					{
+						"tags": "conj_yd_yd",
+						"name_ru": "-ыд, -ыд"
+					},
+					{
+						"tags": "conj_d_d",
+						"name_ru": "-д, -д"
+					},
+					{
+						"tags": "conj_yd_d",
+						"name_ru": "-ыд, -д"
+					},
+					{
+						"tags": "conj_yd_t",
+						"name_ru": "-ыд, -т"
+					},
+					{
+						"tags": "conj_dt_d",
+						"name_ru": "-дт, -д"
+					},
+					{
+						"tags": "conj_ydt_yd",
+						"name_ru": "-ыдт, -ыд"
+					},
+					{
+						"tags": "conj_t_d",
+						"name_ru": "-т, -д"
+					},
+					{
+						"tags": "conj_st_st",
+						"name_ru": "-ст, -ст"
+					}
+				]
+			},
+			{
+				"label_ru": "Гл.: черед. гласного в прош. вр.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "conj_i_y",
+						"name_ru": "и/ы, у/ы"
+					},
+					{
+						"tags": "conj_ae_a",
+						"name_ru": "ӕ/а"
+					},
+					{
+						"tags": "conj_a_ae",
+						"name_ru": "а/ӕ"
+					},
+					{
+						"tags": "conj_au_0",
+						"name_ru": "ау/0, ӕу/0"
+					}
+				]
+			},
+			{
+				"label_ru": "Гл.: черед. согл. в прош. вр.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "conj_d_s",
+						"name_ru": "д/с, сс/с"
+					},
+					{
+						"tags": "conj_dz_gh",
+						"name_ru": "дз/гъ"
+					},
+					{
+						"tags": "conj_j_d",
+						"name_ru": "й/д"
+					},
+					{
+						"tags": "conj_yn_d",
+						"name_ru": "ын/д"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; кроме имён собственных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "русский аффикс при незаимств. корне",
+				"tags": "rus_afx"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			},
+			{
+				"label_ru": "орф. ошибка или опечатка (не забудьте ввести стандартную лемму)",
+				"tags": "missp"
+			}
+		]
 	}
 }
