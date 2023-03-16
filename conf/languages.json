@@ -899,5 +899,170 @@
 				"tags": "mult"
 			}
 		]
+	},
+	"buryat": {
+		"repo": "uniparser-grammar-buryat",
+		"issues_url": "https://github.com/timarkh/uniparser-grammar-buryat/issues/new",
+		"id": "bua",
+		"name_ru": "бурятский",
+		"pos": [
+			{
+				"pos": "N",
+				"name_ru": "существительное"
+			},
+			{
+				"pos": "A",
+				"name_ru": "прилагательное"
+			},
+			{
+				"pos": "V",
+				"name_ru": "глагол"
+			},
+			{
+				"pos": "ADV",
+				"name_ru": "наречие"
+			},
+			{
+				"pos": "INTJ",
+				"name_ru": "междометие"
+			},
+			{
+				"pos": "IMIT",
+				"name_ru": "идеофон"
+			},
+			{
+				"pos": "PRO",
+				"name_ru": "местоимение"
+			},
+			{
+				"pos": "POST",
+				"name_ru": "послелог (не изменяемый по падежам)"
+			},
+			{
+				"pos": "NUM",
+				"name_ru": "числительное"
+			},
+			{
+				"pos": "CONJ",
+				"name_ru": "союз"
+			},
+			{
+				"pos": "PART",
+				"name_ru": "частица"
+			}
+		],
+		"tags": [
+			{
+				"label_ru": "Тип сущ./прил.",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "-"
+					},
+					{
+						"tags": "anim",
+						"name_ru": "название животного"
+					},
+					{
+						"tags": "anim,hum",
+						"name_ru": "название человека"
+					},
+					{
+						"tags": "supernat",
+						"name_ru": "название сверхъестественного существа"
+					},
+					{
+						"tags": "transport",
+						"name_ru": "вид транспорта"
+					},
+					{
+						"tags": "body",
+						"name_ru": "часть тела"
+					},
+					{
+						"tags": "PN,persn",
+						"name_ru": "имя/кличка"
+					},
+					{
+						"tags": "PN,famn",
+						"name_ru": "фамилия"
+					},
+					{
+						"tags": "PN,patrn",
+						"name_ru": "отчество"
+					},
+					{
+						"tags": "PN,topn",
+						"name_ru": "топоним"
+					},
+					{
+						"tags": "PN",
+						"name_ru": "другой вид имени собственного"
+					}
+				]
+			},
+			{
+				"label_ru": "Сингармонизм",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "однозначно определяется"
+					},
+					{
+						"tags": "syn_front",
+						"name_ru": "передний неогубленный"
+					},
+					{
+						"tags": "syn_front_lab",
+						"name_ru": "передний огубленный"
+					},
+					{
+						"tags": "syn_back",
+						"name_ru": "задний неогубленный"
+					},
+					{
+						"tags": "syn_back_lab",
+						"name_ru": "задний огубленный"
+					}
+				]
+			},
+			{
+				"label_ru": "Склонение",
+				"options": [
+					{
+						"tags": "",
+						"name_ru": "однозначно определяется"
+					},
+					{
+						"tags": "decl_unstable_n",
+						"name_ru": "с выпадающим -н"
+					},
+					{
+						"tags": "decl_ng",
+						"name_ru": "на -нг"
+					},
+					{
+						"tags": "decl_n",
+						"name_ru": "с невыпадающим -н"
+					}
+				]
+			},
+			{
+				"label_ru": "заимств. из рус. или через рус.; кроме имён собственных",
+				"tags": "rus"
+			},
+			{
+				"label_ru": "русский аффикс при незаимств. корне",
+				"tags": "rus_afx"
+			},
+			{
+				"label_ru": "аббревиатура",
+				"tags": "abbr"
+			},
+			{
+				"label_ru": "орф. ошибка или опечатка (не забудьте ввести стандартную лемму)",
+				"tags": "missp"
+			}
+		]
 	}
 }

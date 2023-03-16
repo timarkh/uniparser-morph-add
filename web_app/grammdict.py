@@ -15,6 +15,19 @@ class GrammDict:
     rxKomiCCSoft = re.compile('(дь|ль)$')
     rxErzyaCC = re.compile('[йслрцвнтдшчх]ь?[гкмтд]$')
     rxMokshaVoicelessPairs = re.compile('[вгджзйлр]')
+    rxBuryatFrontLab = re.compile('[өү][^аоуяёюөүэе]*(?:[иыеэ]хэ)?$')
+    rxBuryatFront = re.compile('[еэ][^аоуяёюөүэе]*$')
+    rxBuryatBackLab = re.compile('[оу][^аоуяёюөүэе]*(?:[иыаояё]хо)?$')
+    rxBuryatBack = re.compile('[ая][^аоуяёюөүэе]*$')
+    rxBuryatVShortC = re.compile('[^аоуяёюөүэеыий]х[аоэ]$')
+    rxBuryatVShortV = re.compile('[^аоуяёюөүэеыийьъ][аоэяёе]х[аоэ]$')
+    rxBuryatVLong = re.compile('(?:[аоуяёюөүэе][аоуөүэй]|ы)х[аоэ]$')
+    rxBuryatVJ = re.compile('[аоуяёюөүэеьъй][ёюяе]х[аоэ]$')
+    rxBuryatVI = re.compile('их[аоэ]$')
+    rxBuryatNShort = re.compile('[^аоуяёюөүыиэе][аоуяёюөүэе]$')
+    rxBuryatNLong = re.compile('[аоуяёюөүэе][аоуөүэ]$')
+    rxBuryatNN = re.compile('[аоуяёюөүэеыи]н$')
+    rxBuryatNCC = re.compile('[^аоуяёюөүэеыийьъ][^аоуяёюөүэеыийьъ]$')
     with open('conf/languages.json', 'r', encoding='utf-8-sig') as fLang:
         languages = json.load(fLang)
 
@@ -829,6 +842,131 @@ class GrammDict:
             })
         return stems, tags
 
+    def get_stems_buryat(self, lemma, pos, tags):
+        stems = []
+        harmony = 'back'
+        if 'syn_back' in tags:
+            harmony = 'back'
+        elif 'syn_back_lab' in tags:
+            harmony = 'back-lab'
+        elif 'syn_front' in tags:
+            harmony = 'front'
+        elif 'syn_front_lab' in tags:
+            harmony = 'front-lab'
+        else:
+            # Determine the harmony based on vowels
+            if self.rxBuryatFrontLab.search(lemma) is not None:
+                harmony = 'front-lab'
+            elif self.rxBuryatFront.search(lemma) is not None:
+                harmony = 'front'
+            elif self.rxBuryatBackLab.search(lemma) is not None:
+                harmony = 'back-lab'
+            elif self.rxBuryatBack.search(lemma) is not None:
+                harmony = 'back'
+        if pos == 'V':
+            if self.rxBuryatVShortV.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma[:-2] + '.|' + lemma[:-3] + '.',
+                    'paradigm': 'short-' + harmony
+                })
+            elif self.rxBuryatVShortC.search(lemma) is not None:
+                addV = 'а'
+                if harmony.startswith('front'):
+                    addV = 'э'
+                elif harmony == 'back-lab':
+                    addV = 'о'
+                stems.append({
+                    'stem': lemma[:-2] + './/' + lemma[:-2] + addV + '.|' + lemma[:-2] + '.',
+                    'paradigm': 'short-' + harmony
+                })
+            elif self.rxBuryatVLong.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma[:-2] + '.',
+                    'paradigm': 'long-' + harmony
+                })
+            elif self.rxBuryatVI.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma[:-2] + '.|' + lemma[:-3] + '.',
+                    'paradigm': 'i-palat-' + harmony
+                })
+            elif self.rxBuryatVJ.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma[:-2] + '.|' + lemma[:-3] + '.',
+                    'paradigm': 'j-' + harmony
+                })
+        elif pos == 'N':
+            if harmony == 'front-lab':
+                harmony = 'front'
+            if self.rxBuryatNN.search(lemma) is not None:
+                if 'decl_unstable_n' in tags:
+                    paradigm = 'unstable_n'
+                    stems.append({
+                        'stem': lemma + '.|' + lemma[:-1] + '.|' + lemma[:-2] + '.',
+                        'paradigm': 'N-' + harmony + '-unstable_n-case'
+                    })
+                elif 'decl_ng' in tags:
+                    paradigm = 'ng'
+                    stems.append({
+                        'stem': lemma + '.',
+                        'paradigm': 'N-' + harmony + '-ng-case'
+                    })
+                else:
+                    stems.append({
+                        'stem': lemma + '.',
+                        'paradigm': 'N-' + harmony + '-velar-cons-case'
+                    })
+            elif lemma.endswith('ь'):
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-palat-cons-case'
+                })
+            elif lemma.endswith('ой'):
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-back-oj-case'
+                })
+            elif lemma.endswith('й'):
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-y-case'
+                })
+            elif lemma.endswith('ии'):
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-i-long-case'
+                })
+            elif lemma.endswith('и'):
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-i-short-case'
+                })
+            elif self.rxBuryatNCC.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-CC-case'
+                })
+            elif self.rxBuryatNLong.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma + '.',
+                    'paradigm': 'N-' + harmony + '-long-case'
+                })
+            elif self.rxBuryatNShort.search(lemma) is not None:
+                stems.append({
+                    'stem': lemma + '.|' + lemma[:-1] + '.',
+                    'paradigm': 'N-' + harmony + '-case'
+                })
+        elif pos == 'A':
+            stems.append({
+                'stem': lemma + '.',
+                'paradigm': 'predic_non_verbal'
+            })
+        else:
+            stems.append({
+                'stem': lemma + '.',
+                'paradigm': 'unchangeable'
+            })
+        return stems, tags
+
     def get_stems(self, lang, lemma, pos, tags):
         stems = []
         if lang == 'udmurt':
@@ -841,13 +979,17 @@ class GrammDict:
             stems, tags = self.get_stems_erzya(lemma, pos, tags)
         elif lang == 'moksha':
             stems, tags = self.get_stems_moksha(lemma, pos, tags)
+        elif lang == 'buryat':
+            stems, tags = self.get_stems_buryat(lemma, pos, tags)
         return stems, tags
 
     def fix_tags(self, lang, pos, tags):
         addTags = set()
         delTags = {'poss_yz',
                    'consonant', 'oxyton', 'paroxyton', 'conj_a', 'conj_e',
-                   'infl_obl_j', 'infl_obl_k', 'infl_pi', 'infl_v_l'}
+                   'infl_obl_j', 'infl_obl_k', 'infl_pi', 'infl_v_l',
+                   'decl_unstable_n', 'decl_ng', 'decl_n',
+                   'syn_front', 'syn_front_lab', 'syn_back', 'syn_back_lab'}
         if 'PN' in tags and 'rus' in tags and pos != 'V':
             delTags.add('rus')
         if ('PN' not in tags and ('persn' in tags or 'famn' in tags

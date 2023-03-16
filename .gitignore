@@ -6,6 +6,7 @@ web_app/komi_zyrian/uniparser-grammar-komi-zyrian/*
 web_app/meadow_mari/uniparser-grammar-meadow-mari/*
 web_app/erzya/uniparser-grammar-erzya/*
 web_app/moksha/uniparser-grammar-moksha/*
+web_app/buryat/uniparser-grammar-buryat/*
 new_lexemes.txt
 new_lexemes_*.txt
 new_lexrules.txt
