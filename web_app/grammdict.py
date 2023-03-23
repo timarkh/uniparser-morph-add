@@ -93,8 +93,12 @@ class GrammDict:
         if lang not in self.lexemes or len(lemma) <= 0 or len(pos) <= 0:
             return
         # print(lemma, lexref, pos, tags, stems, trans_ru)
-        if len(pos) <= 0 or len(stems) <= 0:
+        if len(pos) <= 0 or len(lemma) <= 0 or len(stems) <= 0:
             return
+        if 'PN' in tags:
+            lemma = lemma[0].upper() + lemma[1:]
+            if len(trans_ru) > 0:
+                trans_ru = trans_ru[0].upper() + trans_ru[1:]
         lex = ''
         if len(lexref) > 0:
             lemma = lexref
